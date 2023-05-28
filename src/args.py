@@ -97,7 +97,7 @@ def get_args():
                     help="Set the file name pattern for attachments. See Output Patterns for more detail.")
 
     ap.add_argument("--inline-filename-pattern",
-                    metavar="INLINE_FILENAME_PATTERN", type=str, default='[{published}] [{id}] {title}\inline\{index}_{filename}.{ext}',
+                    metavar="INLINE_FILENAME_PATTERN", type=str, default='[{published}] [{id}] {title}\{index}_{filename}_inline.{ext}',
                     help="Set the file name pattern for inline images. See Output Patterns for more detail.")
 
     ap.add_argument("--other-filename-pattern",
@@ -199,6 +199,21 @@ def get_args():
     ap.add_argument("--user-agent",
                     metavar="UA", type=str, default='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36',
                     help="Set a custom user agent")
+
+    ap.add_argument("--download-timeout",
+                    metavar="SEC", type=int, default=0,
+                    help="The time in seconds to wait between downloading attachments or inline items. (default: 0)")
+
+    ap.add_argument("--stop-on-failure",
+                    action='store_true', default=False,
+                    help="Stop on first request failure.")
+    
+    # new experimental parameters
+
+    ap.add_argument("--post-title-filter",
+                    metavar="TITLE_FILTER", type=str, default=None,
+                    help="Only download posts containing title with this phrase.")
+
 
     args = vars(ap.parse_args())
 
